@@ -12,6 +12,7 @@ angular.module('bgAngularApp')
     // Init to 40, but use server settings after loading a page
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
+    $scope.breadcrumbs = [];
     
     // Refresh the posts for the scope using current parameters
     $scope.refreshPosts = function() {
@@ -23,6 +24,7 @@ angular.module('bgAngularApp')
       }
 
       $badgame.getPosts($routeParams.topicId, offset).then(function(data) {
+        $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.posts = data.messages;
         $scope.currentPage = data.page_info.current_page;
         $scope.postsPerPage = data.page_info.items_per_page;

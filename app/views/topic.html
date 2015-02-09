@@ -1,6 +1,7 @@
 <div class="container">
-  <a id="top"></a>
   <center>
+      <div ng-include="'templates/bread-crumb.html'"></div>
+      <a id="top"></a>
       <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
   </center>
 
@@ -11,7 +12,7 @@
       <any class="avatar" ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></any>
       <span ng-bind-html="post.author"></span>
     </div>
-    <div class="row">
+    <div class="row" bglink>
       <span ng-bind-html="post.body"></span><br/> 
     </div>
     <div class="post-actions pull-right">
@@ -23,6 +24,7 @@
 
   <center>
       <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      <div ng-include="'templates/bread-crumb.html'"></div>
   </center>
 </div>
 
