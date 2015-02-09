@@ -8,7 +8,7 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('TopicCtrl', ['$scope', '$badgame', '$location', '$routeParams', function ($scope, $badgame, $location, $routeParams) {
+  .controller('TopicCtrl', ['$scope', '$badgame', '$location', '$anchorScroll', '$routeParams', function ($scope, $badgame, $location, $anchorScroll, $routeParams) {
     // Init to 40, but use server settings after loading a page
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
@@ -20,6 +20,7 @@ angular.module('bgAngularApp')
       // Reset override
       if($scope.offsetOverride) {
         $scope.offsetOverride = undefined;
+        $location.hash('new');
       }
 
       $badgame.getPosts($routeParams.topicId, offset).then(function(data) {
@@ -30,6 +31,11 @@ angular.module('bgAngularApp')
         $scope.replyUrl = data.reply_url;
       });
     };
+
+    // Monitor rendering status and jump to anchor
+    $scope.$on('ngRepeatFinished', function(event) {
+      $anchorScroll();
+    });
     
     $scope.handleQuote = function(element) {
       $badgame.postUrl = element.quote_url;
