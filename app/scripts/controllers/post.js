@@ -8,12 +8,16 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('PostCtrl', ['$scope', '$badgame', '$sce', function ($scope, $badgame, $sce) {
+  .controller('PostCtrl', ['$scope', '$badgame', '$sce', '$location', function ($scope, $badgame, $sce, $location) {
     $scope.postParams = {};
     $scope.message = '';
 
     $badgame.postInit().then(function(data) {
       $scope.postParams = data;
+      
+      // Disable SMF forwarding, we'll handle it
+      $scope.postParams.noforward = 1;
+      
       $scope.message = $sce.trustAsHtml(data.message);
     });
 
@@ -22,7 +26,9 @@ angular.module('bgAngularApp')
       $scope.postParams.message = $('#post-input').val();
 
       $badgame.handlePost($scope.postParams).then(function() {
-        // Redirect to post
+
+        // Redirect to post with new triggered
+       $location.path('/topic/' + $scope.postParams.topic + '/1'); 
       });;
     };
   }]);

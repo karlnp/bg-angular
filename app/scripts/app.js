@@ -28,7 +28,7 @@ angular
         templateUrl: 'views/board.html',
         controller: 'BoardCtrl'
       })
-      .when('/topic/:topicId', {
+      .when('/topic/:topicId/:showNew?', {
         templateUrl: 'views/topic.html',
         controller: 'TopicCtrl'
       })
