@@ -8,12 +8,12 @@
     <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
     <div class="row"> 
-          <div class="col-xs-4 col-md-3">
+          <div class="col-xs-3">
             <span ng-bind-html="post.author"></span><br/>
             <any class="avatar" ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></any>
                           
           </div>
-          <div class="col-xs-8 col-md-9"> 
+          <div class="col-xs-9"> 
             <span ng-bind-html="post.body"></span><br/> 
             
           </div>
