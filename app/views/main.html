@@ -2,7 +2,7 @@
 <div class="row" ng-repeat="category in categories">
   <h3>{{ category.categoryName }}</h3>
   <div ng-repeat="board in category.boards">
-    <a ng-href="#/board/{{board.board_id}}">{{board.name}}</a>
+    <a ng-href="#/board/{{board.board_id}}"><h4>{{board.name}}</h4></a>
     <p>{{board.desc}}</p>
   </div>
 </div>
