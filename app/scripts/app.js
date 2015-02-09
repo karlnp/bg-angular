@@ -29,6 +29,7 @@ angular
         controller: 'BoardCtrl'
       })
       .when('/topic/:topicId/:showNew?', {
+        reloadOnSearch: false,
         templateUrl: 'views/topic.html',
         controller: 'TopicCtrl'
       })

@@ -49,6 +49,7 @@ angular.module('bgAngularApp')
 
     // Handle page changes
     $scope.pageChanged = function() {
+      $location.hash('top');
       $scope.refreshPosts();
     };
 
