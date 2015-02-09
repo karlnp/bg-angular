@@ -28,7 +28,8 @@ angular.module('bgAngularApp')
       $badgame.handlePost($scope.postParams).then(function() {
 
         // Redirect to post with new triggered
-       $location.path('/topic/' + $scope.postParams.topic + '/1'); 
+       $location.hash('new');
+       $location.path('/topic/' + $scope.postParams.topic + '/new'); 
       });;
     };
   }]);

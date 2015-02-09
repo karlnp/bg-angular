@@ -5,12 +5,12 @@
   </center>
 
   <div class="post" ng-repeat="post in posts" ngcomplete="postsDone">
+    <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
     <div class="row"> 
           <div class="col-xs-4 col-md-3">
             <span ng-bind-html="post.author"></span><br/>
             <any ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></any>
-
                           
           </div>
           <div class="col-xs-8 col-md-9" 

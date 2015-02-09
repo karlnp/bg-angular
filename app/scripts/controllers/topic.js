@@ -15,12 +15,11 @@ angular.module('bgAngularApp')
     
     // Refresh the posts for the scope using current parameters
     $scope.refreshPosts = function() {
-      var offset = $scope.offsetOverride ? 'new' : ($scope.currentPage - 1) * $scope.postsPerPage;
+      var offset = $scope.offsetOverride ? $routeParams.offset : ($scope.currentPage - 1) * $scope.postsPerPage;
 
       // Reset override
       if($scope.offsetOverride) {
         $scope.offsetOverride = undefined;
-        $location.hash('new');
       }
 
       $badgame.getPosts($routeParams.topicId, offset).then(function(data) {
@@ -53,7 +52,7 @@ angular.module('bgAngularApp')
       $scope.refreshPosts();
     };
 
-    if($routeParams.showNew) {
+    if($routeParams.offset) {
       $scope.offsetOverride = true;
     }
 

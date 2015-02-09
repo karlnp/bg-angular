@@ -28,7 +28,7 @@ angular
         templateUrl: 'views/board.html',
         controller: 'BoardCtrl'
       })
-      .when('/topic/:topicId/:showNew?', {
+      .when('/topic/:topicId/:offset?', {
         reloadOnSearch: false,
         templateUrl: 'views/topic.html',
         controller: 'TopicCtrl'
