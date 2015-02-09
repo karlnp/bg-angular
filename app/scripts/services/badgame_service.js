@@ -4,7 +4,7 @@ angular.module('bgAngularApp')
   .factory('$badgame', ['$http', '$log', '$q', function($http, $log, $q) {
     var factory = {};
 
-    var URL_DOMAIN = '192.168.1.145/smf';
+    var URL_DOMAIN = 'badgame.net';
     var URL_BASE = 'http://' + URL_DOMAIN + '/';
 
     var LOGIN_URL = URL_BASE + 'index.php?action=login2;json';
