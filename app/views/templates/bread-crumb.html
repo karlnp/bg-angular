@@ -1,0 +1,9 @@
+<div ng-if="breadcrumbs" bglink>
+  <a href="{{uplink}}">
+    <ol class="breadcrumb">
+      <li ng-repeat="crumb in breadcrumbs">
+        <span ng-bind-html="crumb.name"></span>
+      </li>
+    </ol>
+  </a>
+</div>

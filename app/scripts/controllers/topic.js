@@ -25,6 +25,7 @@ angular.module('bgAngularApp')
 
       $badgame.getPosts($routeParams.topicId, offset).then(function(data) {
         $scope.breadcrumbs = data.crumbs.slice(2);
+        $scope.uplink = $scope.breadcrumbs[0].url;
         $scope.posts = data.messages;
         $scope.currentPage = data.page_info.current_page;
         $scope.postsPerPage = data.page_info.items_per_page;
