@@ -18,6 +18,22 @@ angular
     'ngTouch',
     'ui.bootstrap'
   ])
+  .run(['$rootScope', '$route', function($rootScope, $route) {
+    // Image hiding variable management
+    $rootScope.hideImages = localStorage.getItem('hideImages');
+
+    $rootScope.$watch('$root.hideImages', function(newVal, oldVal) {
+      if(newVal != oldVal) {
+        if(newVal) {
+          localStorage.setItem('hideImages', 1);
+        } else {
+          localStorage.removeItem('hideImages');
+        }
+
+        $route.reload();
+      }
+    });
+  }])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
