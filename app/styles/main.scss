@@ -94,12 +94,15 @@ body {
 .author-info {
   line-height: 50px;
   background-color: #F5F5F5;
+  margin-bottom: 0.2em;
+  border-top: 1px solid #a7a7a7;
 }
 
 .avatar {
   max-width: 50px;
   height: auto;
   width: auto;
+  padding: 0.1em;
 }
 
 .post {
@@ -128,4 +131,8 @@ body {
   padding: 5px;
   background-color: #E5E5E5;
   width: 100%;
+}
+
+.board.row {
+  border-bottom: 1px solid #E5E5E5;
 }
