@@ -5,22 +5,25 @@
       <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
   </center>
 
+  <hr/>
+
   <div class="post" ng-repeat="post in posts" ngcomplete="postsDone" bgimage>
     <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
-    <div class="row author-info"> 
-      <any class="avatar" ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></any>
-      <span ng-bind-html="post.author"></span>
+    <div class="row author-info">
+      <span ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></span>
+      <span class="author-name" ng-bind-html="post.author"></span>
     </div>
-    <div class="row" bglink>
-      <span ng-bind-html="post.body"></span><br/> 
+    <div class="row post-content" bglink>
+      <span ng-bind-html="post.body"></span>
+      <div class="pull-right post-actions">
+        <button class="btn btn-default btn-sm" ng-click="handleQuote(post);">Quote</button>
+        <button class="btn btn-default btn-sm" ng-click="handleReply();">Reply</button>
+      </div>
     </div>
-    <div class="post-actions pull-right">
-      <button class="btn btn-default btn-sm" ng-click="handleQuote(post);">Quote</button>
-      <button class="btn btn-default btn-sm" ng-click="handleReply();">Reply</button>
-    </div>
-    <div class="clearfix"></div>
   </div>
+
+  <hr/>
 
   <center>
       <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>

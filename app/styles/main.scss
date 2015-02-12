@@ -68,6 +68,14 @@ body {
   }
 }
 
+/* We want as much horizontal space as we can get on
+ * small screens. */
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
@@ -94,21 +102,44 @@ body {
 .author-info {
   line-height: 50px;
   background-color: #F5F5F5;
+  border: 1px solid #cccccc;
+  padding-left: 0.5em;
+}
+
+.author-name {
+  font-weight: bold;
 }
 
 .avatar {
   max-width: 50px;
   height: auto;
   width: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
 }
 
 .post {
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding-bottom: .6em;
 };
 
+.post-content
+{
+  background-color: #F5F5F5;
+  padding: 0.5em;
+  border-bottom: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+}
+
 .post-actions {
-  padding-top: 15px;
+  margin-top: 0.5em;
+  margin-left: 1em;
+}
+
+.post-date {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
 }
 
 .posted-image {
@@ -121,6 +152,7 @@ body {
 .quoteheader {
   padding: 5px;
   background-color: #D5D5D5;
+  font-weight: 500;
   width: 100%;
 }
 
@@ -129,3 +161,113 @@ body {
   background-color: #E5E5E5;
   width: 100%;
 }
+
+.board.row {
+  border-bottom: 1px solid #E5E5E5;
+}
+
+/* A code block - maybe even PHP ;). */
+.code
+{
+  color: #000000;
+  background-color: #dddddd;
+  font-family: "courier new", "times new roman", monospace;
+  line-height: 1.3em;
+  /* Put a nice border around it. */
+  border: 1px solid #242424;
+  border-left: 3px solid #242424;
+  padding: 1px;
+  /* Don't wrap its contents, and show scrollbars. */
+  white-space: nowrap;
+  overflow: auto;
+  padding: 12px;
+  /* Stop after about 24 lines, and just show a scrollbar. */
+  max-height: 24em;
+}
+
+.quote
+{
+  color: #555;
+  border-left: 3px solid #8C82A6;
+}
+
+/* The "Quote:" and "Code:" header parts... */
+.quoteheader, .codeheader, .nwsheader, .spoilerheader, .tldrheader
+{
+  padding: 5px 8px;
+  background-repeat: no-repeat;
+  background-position: right;
+  text-decoration: none;
+  border-left: 3px solid #8C82A6;
+  border-bottom: 0;
+}
+
+.codeheader
+{
+  background-color: #DDD;
+  border: 1px solid #242424;
+  border-left: 3px solid #242424;
+  border-bottom: 0;
+}
+
+.hiddenheader
+{
+  cursor: pointer;
+}
+
+.nwsheader
+{
+  background-color: #EEE3E8;
+  border: 1px solid #AE8EAC;
+  border-left: 3px solid #AE8EAC;
+  color: #757575;
+}
+
+.nwsblock
+{
+  color: #454545;
+  background-color: #EEE3E8;
+  border: 1px solid #AE8EAC;
+  border-left: 3px solid #AE8EAC;
+  border-top: 0;
+  display: none;
+}
+
+.spoilerheader
+{
+  border: 1px solid black;
+  border-left: 3px solid black;
+  background-color: #454545;
+  color: #FFFFFF;
+}
+
+.spoilerblock
+{
+  background-color: #454545;
+  color: #FFFFFF;
+  border: 1px solid black;
+  border-left: 3px solid black;
+  border-top: 0;
+}
+
+.tldrheader
+{
+  border: 1px solid #242424;
+  border-left: 3px solid #242424;
+  background-color: #F0EFE9;
+  color: #242424;
+}
+
+.tldrblock
+{
+  background-color: #F0EFE9;
+  border: 1px solid #242424;
+  border-left: 3px solid #242424;
+  border-top: 0;
+}
+
+.hiddenblock
+{
+  padding: 12px;
+}
+
