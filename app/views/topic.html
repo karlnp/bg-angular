@@ -11,8 +11,8 @@
     <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
     <div class="row author-info">
-      <any class="avatar" ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></any>
-      <span ng-bind-html="post.author"></span>
+      <span ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></span>
+      <span class="author-name" ng-bind-html="post.author"></span>
     </div>
     <div class="row post-content" bglink>
       <span ng-bind-html="post.body"></span>
@@ -21,7 +21,6 @@
         <button class="btn btn-default btn-sm" ng-click="handleReply();">Reply</button>
       </div>
     </div>
-    <div class="clearfix"></div>
   </div>
 
   <hr/>

@@ -68,6 +68,14 @@ body {
   }
 }
 
+/* We want as much horizontal space as we can get on
+ * small screens. */
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 10px;
+  }
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
@@ -95,13 +103,20 @@ body {
   line-height: 50px;
   background-color: #F5F5F5;
   border: 1px solid #a7a7a7;
+  padding-left: 0.5em;
+}
+
+.author-name {
+  font-weight: bold;
 }
 
 .avatar {
   max-width: 50px;
   height: auto;
   width: auto;
-  padding: 0.1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
 }
 
 .post {
@@ -110,7 +125,7 @@ body {
 
 .post-content
 {
-  background-color: #efefef;
+  background-color: #F5F5F5;
   padding: 0.5em;
   border-bottom: 1px solid #a7a7a7;
   border-left: 1px solid #a7a7a7;
@@ -118,6 +133,11 @@ body {
 }
 
 .post-actions {
+  margin-top: 0.5em;
+  margin-left: 1em;
+}
+
+.post-date {
   margin-top: 0.5em;
   margin-left: 0.5em;
 }
@@ -132,6 +152,7 @@ body {
 .quoteheader {
   padding: 5px;
   background-color: #D5D5D5;
+  font-weight: 500;
   width: 100%;
 }
 
@@ -167,7 +188,6 @@ body {
 .quote
 {
   color: #555;
-  border: 1px solid #8C82A6;
   border-left: 3px solid #8C82A6;
 }
 
@@ -178,7 +198,6 @@ body {
   background-repeat: no-repeat;
   background-position: right;
   text-decoration: none;
-  border: 1px solid #8C82A6;
   border-left: 3px solid #8C82A6;
   border-bottom: 0;
 }
