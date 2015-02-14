@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bgAngularApp')
-  .factory('$badgame', ['$http', '$log', '$q', function($http, $log, $q) {
+  .factory('$badgame', ['$http', '$log', '$q', '$sanitize', function($http, $log, $q, $sanitize) {
     var factory = {};
 
     var URL_DOMAIN = 'badgame.net';
@@ -117,6 +117,13 @@ angular.module('bgAngularApp')
 
     factory.handlePost = function(data) {
       var deferred = $q.defer();
+
+      // Sanitize fields known for issues in badgame 
+      var textFields = ["subject", "message", "guestname", "evtitle", "question"];
+      angular.forEach(textFields, function(value, key) {
+        data[value]= data[value] || '';
+        data[value] = $sanitize(data[value]);
+      });
 
       $http({
         method: 'POST',
