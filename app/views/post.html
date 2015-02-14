@@ -1,4 +1,8 @@
 <div class="container">
+  <center>
+    <div ng-if="invalidPost" style="color: red;">You cannot submit a blank post</div>
+  </center>
+
   <textarea id="post-input" class="form-control" rows="10" ng-bind-html="message"></textarea>
   <center>
     <button class="btn btn-default btn-sm" ng-click="performPost();" style="margin: 15px;">Post</button>
