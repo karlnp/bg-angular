@@ -30,6 +30,6 @@ angular.module('bgAngularApp')
         // Redirect to post with new triggered
        $location.hash('new');
        $location.path('/topic/' + $scope.postParams.topic + '/new'); 
-      });;
+      });
     };
   }]);
