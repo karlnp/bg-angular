@@ -21,6 +21,10 @@ angular.module('bgAngularApp')
       $scope.postParams.noforward = 1;
       
       $scope.message = $sce.trustAsHtml(data.message);
+    }, function() {
+      // Something went wrong with post init, kick user back out to root view
+      // This should only occur if user manually refreshes the post view
+      $location.path('/');
     });
 
     $scope.performPost = function() {
