@@ -53,7 +53,7 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
-      .when('/post', {
+      .when('/post/:msg?', {
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })

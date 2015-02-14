@@ -42,7 +42,7 @@ angular.module('bgAngularApp')
     
     $scope.handleEdit = function(element) {
       $badgame.postUrl = element.edit_url;
-      $location.path('/post');
+      $location.path('/post/msg' + element.id);
     }
 
     $scope.handleQuote = function(element) {
