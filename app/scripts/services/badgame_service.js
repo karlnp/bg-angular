@@ -4,7 +4,7 @@ angular.module('bgAngularApp')
   .factory('$badgame', ['$http', '$log', '$q', '$sanitize', function($http, $log, $q, $sanitize) {
     var factory = {};
 
-    var URL_DOMAIN = 'badgame.net';
+    var URL_DOMAIN = '192.168.1.145/smf';
     var URL_BASE = 'http://' + URL_DOMAIN + '/';
 
     var LOGIN_URL = URL_BASE + 'index.php?action=login2;json';
@@ -123,6 +123,13 @@ angular.module('bgAngularApp')
       angular.forEach(textFields, function(value, key) {
         data[value]= data[value] || '';
         data[value] = $sanitize(data[value]);
+        
+        // Allow newlines, angular sanitize converts them to linefeed &#10;
+        /*
+          A whitelist would be nicer but weird to do without it affecting
+          everything that uses sanitize in app.
+        */
+        data[value] = data[value].replace(/&#10;/g, "\n");
       });
 
       $http({

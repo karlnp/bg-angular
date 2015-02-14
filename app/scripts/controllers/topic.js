@@ -39,6 +39,11 @@ angular.module('bgAngularApp')
       $anchorScroll();
     });
     
+    $scope.handleEdit = function(element) {
+      $badgame.postUrl = element.edit_url;
+      $location.path('/post');
+    }
+
     $scope.handleQuote = function(element) {
       $badgame.postUrl = element.quote_url;
       $location.path('/post');
