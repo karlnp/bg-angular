@@ -15,6 +15,15 @@ angular.module('bgAngularApp')
             $(".avatar img").css("display", "none");
           });
         }
+
+        // Clear after last image in post if any
+        if(scope.$last === true) {
+          $timeout(function() {
+            $('.post').find('img.posted-image:last').each(function() {
+              $(this).after("<div class=\"clearfix\"></div>");
+            });
+          });
+        }
       }
     };
 }]);
