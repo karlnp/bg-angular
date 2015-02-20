@@ -124,12 +124,15 @@ angular.module('bgAngularApp')
         data[value]= data[value] || '';
         data[value] = $sanitize(data[value]);
         
-        // Allow newlines, angular sanitize converts them to linefeed &#10;
+        // Allow some characters converted by sanitize, SMF expects them
         /*
           A whitelist would be nicer but weird to do without it affecting
           everything that uses sanitize in app.
         */
         data[value] = data[value].replace(/&#10;/g, "\n");
+        data[value] = data[value].replace(/&amp;/g, "&");
+        data[value] = data[value].replace(/&lt;/g, "<");
+        data[value] = data[value].replace(/&gt;/g, ">");
       });
 
       var fd = new FormData();
