@@ -132,11 +132,18 @@ angular.module('bgAngularApp')
         data[value] = data[value].replace(/&#10;/g, "\n");
       });
 
+      var fd = new FormData();
+      for(var key in data) {
+        console.log(key);
+        fd.append(key, data[key]);
+      }
+
       $http({
         method: 'POST',
         url: data.form_action,
-        data: $.param(data),
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: fd,
+        headers: {'Content-Type': undefined},
+        transformRequest: angular.identity,
         withCredentials: true
       }).success(function(data, status, headers, config) {
         deferred.resolve();
