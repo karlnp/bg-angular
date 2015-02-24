@@ -1,7 +1,13 @@
 'use strict';
 
+/*
+  This directive will handle all the post processing required
+  by badgame's BBC generation.
+
+  Links are also given a custom click handler so they stay in app
+*/
 angular.module('bgAngularApp')
-  .directive('bglink', ['$timeout', '$location', function($timeout, $location) {
+  .directive('bgpost', ['$timeout', '$location', function($timeout, $location) {
     // Query parameter extraction
     function getParam(url, name) {
       name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -13,8 +19,14 @@ angular.module('bgAngularApp')
     return {
       restict: 'A',
       link: function(scope, element, attr) {
-        // Find all links in element
+        // Find all links in element so we can route them locally in app
         $timeout(function() {
+          // Youtube embed handling
+          $(element).find('.youtube').each(function(key, val) {
+            var ytLink = $(val).text();
+            $(val).html('<a href="' + ytLink + '">' + ytLink + '</a>');
+          });
+
           $(element).find('a').each(function(key, val) {
             var href = $(val).attr('href');
 
