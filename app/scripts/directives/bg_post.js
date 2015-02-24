@@ -19,14 +19,20 @@ angular.module('bgAngularApp')
     return {
       restict: 'A',
       link: function(scope, element, attr) {
-        // Find all links in element so we can route them locally in app
         $timeout(function() {
+          // Vimeo
+          $(element).find('.vimeo').each(function(key, val) {
+            var vimeoLink = 'https://vimeo.com/' + $(val).text();
+            $(val).html('<a href="' + vimeoLink + '">' + vimeoLink + '</a>');
+          });
+
           // Youtube embed handling
           $(element).find('.youtube').each(function(key, val) {
             var ytLink = $(val).text();
             $(val).html('<a href="' + ytLink + '">' + ytLink + '</a>');
           });
 
+          // Link wrapper
           $(element).find('a').each(function(key, val) {
             var href = $(val).attr('href');
 
