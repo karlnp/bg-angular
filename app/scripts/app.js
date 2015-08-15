@@ -58,6 +58,15 @@ angular
         templateUrl: 'views/post.html',
         controller: 'PostCtrl'
       })
+      .when('/search', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchCtrl'
+      })
+      .when('/searchresults/:offset?', {
+        reloadOnSearch: false,
+        templateUrl: 'views/topic.html',
+        controller: 'TopicCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

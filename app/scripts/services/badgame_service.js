@@ -11,9 +11,16 @@ angular.module('bgAngularApp')
     var BOARD_URL = URL_BASE + 'index.php?json&board=';
     var CATEGORY_URL = URL_BASE + '?json';
     var TOPIC_URL = URL_BASE + 'index.php?json&topic=';
+    var SEARCH_URL = URL_BASE + 'index.php?json&action=solrresults';
+
+    // What topic are we currently viewing?
+    factory.currentTopic = 0;
    
     // Store out path for posting (New Post, Quote, Reply)
     factory.postUrl = '';
+
+    // Maintain search params in service
+    factory.searchParams = {};
 
     /*
       Get available forums to post in
@@ -57,18 +64,40 @@ angular.module('bgAngularApp')
     /*
       Get the posts for a specified topic
     */
-    factory.getPosts = function (topic_id, offset) {
+    factory.getPosts = function (offset) {
       var offset = offset || 0;
       var deferred = $q.defer();
 
       $http({
         method: 'GET',
-        url: TOPIC_URL + topic_id + '.' + offset,
+        url: TOPIC_URL + factory.currentTopic + '.' + offset,
         withCredentials: true
       }).success(function(data, status, headers, config) {
         deferred.resolve(data);
       }).error(function () {
         deferred.reject()
+      });
+
+      return deferred.promise;
+    };
+
+    /*
+      Get the posts for a search query
+    */
+    factory.getSearchResults = function(offset) {
+      var offset = offset || 0;
+      var deferred = $q.defer();
+
+      $http({
+        data: $.param({search: factory.searchParams.search}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        method: 'POST',
+        url: SEARCH_URL + '&start=' + offset,
+        withCredentials: true
+      }).success(function(data, status, headers, config) {
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject();
       });
 
       return deferred.promise;
@@ -137,7 +166,6 @@ angular.module('bgAngularApp')
 
       var fd = new FormData();
       for(var key in data) {
-        console.log(key);
         fd.append(key, data[key]);
       }
 
@@ -151,7 +179,6 @@ angular.module('bgAngularApp')
       }).success(function(data, status, headers, config) {
         deferred.resolve();
       }).error(function() {
-        console.log('error!');
         deferred.reject();
       });
 

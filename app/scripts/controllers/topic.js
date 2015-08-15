@@ -27,7 +27,9 @@ angular.module('bgAngularApp')
         $scope.offsetOverride = undefined;
       }
 
-      badgame.getPosts($routeParams.topicId, offset).then(function(data) {
+      var postGetter = $scope.searchMode ? badgame.getSearchResults : badgame.getPosts;
+
+      postGetter(offset).then(function(data) {
         $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
@@ -61,12 +63,28 @@ angular.module('bgAngularApp')
 
     // Handle page changes
     $scope.pageChanged = function() {
-      $location.path('/topic/' + $routeParams.topicId + '/' + getOffset());
+      if($scope.searchMode) {
+        $location.path('/searchresults/' + getOffset());
+      } else {
+        $location.path('/topic/' + $routeParams.topicId + '/' + getOffset());
+      }
+
       $location.hash('top');
     };
 
     if($routeParams.offset) {
       $scope.offsetOverride = true;
+    }
+
+    if($routeParams.topicId) {
+      badgame.currentTopic = $routeParams.topicId;
+    }
+
+    $scope.searchMode = $location.path().indexOf('searchresults') > -1;
+
+    // Redirect to search page if empty query specified
+    if($scope.searchMode && !badgame.searchParams.search) {
+      $location.path('/search');
     }
 
     // Load the initial set of posts

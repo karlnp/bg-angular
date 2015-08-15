@@ -2,7 +2,7 @@
   <center>
       <div ng-include="'views/templates/bread-crumb.html'"></div>
       <a id="top"></a>
-      <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      <pagination ng-show="totalItems > 0" boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
   </center>
 
   <hr/>
@@ -16,7 +16,7 @@
     </div>
     <div class="row post-content" bgpost>
       <span ng-bind-html="post.body"></span>
-      <div class="pull-right post-actions">
+      <div ng-if="!searchMode" class="pull-right post-actions">
         <button ng-if="post.can_modify" class="btn btn-default btn-sm" ng-click="handleEdit(post);">Edit</button>
         <button ng-if="can_reply" class="btn btn-default btn-sm" ng-click="handleQuote(post);">Quote</button>
         <button ng-if="can_reply" class="btn btn-default btn-sm" ng-click="handleReply();">Reply</button>
@@ -27,7 +27,7 @@
   <hr/>
 
   <center>
-      <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      <pagination ng-show="totalItems > 0" boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
       <div ng-include="'views/templates/bread-crumb.html'"></div>
   </center>
 </div>
