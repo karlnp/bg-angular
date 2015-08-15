@@ -8,7 +8,7 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('BoardCtrl', ['$scope', '$badgame' , '$routeParams', function ($scope, $badgame, $routeParams) {
+  .controller('BoardCtrl', ['$scope', '$badgame' , '$routeParams', '$location', '$anchorScroll', function ($scope, $badgame, $routeParams, $location, $anchorScroll) {
     $scope.topicsPerPage = 20;
 
     $scope.refreshTopics = function() {
@@ -21,7 +21,13 @@ angular.module('bgAngularApp')
       });
     };
 
+    // Monitor rendering status and jump to anchor
+    $scope.$on('ngRepeatFinished', function(event) {
+      $anchorScroll();
+    });
+
     $scope.pageChanged = function() {
+      $location.hash('top');
       $scope.refreshTopics(); 
     };
 

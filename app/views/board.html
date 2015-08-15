@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="board row" ng-repeat="topic in topics">
+  <center>
+    <a id="top"></a>
+    <pagination max-size="5" total-items="totalItems" items-per-page="topicsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+  </center>
+
+  <div class="board row" ng-repeat="topic in topics" ngcomplete="topicsDone">
     <a ng-href="#/topic/{{topic.topic_id}}/{{topic.offset}}">
         <div class="col-xs-8 col-md-10"><h4 ng-bind-html="topic.subject"></h4></div>
         <div class="col-xs-4 col-md-2"><h4 class="text-right" ng-if="topic.unreadPosts > 0">{{topic.unreadPosts}}</h4></div>

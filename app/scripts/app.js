@@ -41,6 +41,7 @@ angular
         controller: 'MainCtrl'
       })
       .when('/board/:boardId', {
+        reloadOnSearch: false,
         templateUrl: 'views/board.html',
         controller: 'BoardCtrl'
       })
