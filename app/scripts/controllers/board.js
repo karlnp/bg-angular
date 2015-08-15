@@ -8,12 +8,12 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('BoardCtrl', ['$scope', '$badgame' , '$routeParams', '$location', '$anchorScroll', function ($scope, $badgame, $routeParams, $location, $anchorScroll) {
+  .controller('BoardCtrl', ['$scope', 'badgame' , '$routeParams', '$location', '$anchorScroll', function ($scope, badgame, $routeParams, $location, $anchorScroll) {
     $scope.topicsPerPage = 20;
 
     $scope.refreshTopics = function() {
       var offset = ($scope.currentPage - 1) * $scope.topicsPerPage;
-      $badgame.getTopics($routeParams.boardId, offset).then(function(data) {
+      badgame.getTopics($routeParams.boardId, offset).then(function(data) {
         $scope.topics = data.topics;
         $scope.currentPage = data.page_info.current_page;
         $scope.topicsPerPage = data.page_info.items_per_page;

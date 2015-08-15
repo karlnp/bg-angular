@@ -8,7 +8,7 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('TopicCtrl', ['$scope', '$badgame', '$location', '$anchorScroll', '$routeParams', function ($scope, $badgame, $location, $anchorScroll, $routeParams) {
+  .controller('TopicCtrl', ['$scope', 'badgame', '$location', '$anchorScroll', '$routeParams', function ($scope, badgame, $location, $anchorScroll, $routeParams) {
     // Init to 40, but use server settings after loading a page
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
@@ -23,7 +23,7 @@ angular.module('bgAngularApp')
         $scope.offsetOverride = undefined;
       }
 
-      $badgame.getPosts($routeParams.topicId, offset).then(function(data) {
+      badgame.getPosts($routeParams.topicId, offset).then(function(data) {
         $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
@@ -41,17 +41,17 @@ angular.module('bgAngularApp')
     });
     
     $scope.handleEdit = function(element) {
-      $badgame.postUrl = element.edit_url;
+      badgame.postUrl = element.edit_url;
       $location.path('/post/msg' + element.id);
     }
 
     $scope.handleQuote = function(element) {
-      $badgame.postUrl = element.quote_url;
+      badgame.postUrl = element.quote_url;
       $location.path('/post');
     };
 
     $scope.handleReply = function() {
-      $badgame.postUrl = $scope.replyUrl;
+      badgame.postUrl = $scope.replyUrl;
       $location.path('/post');
     };
 

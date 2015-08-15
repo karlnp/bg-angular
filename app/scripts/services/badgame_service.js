@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bgAngularApp')
-  .factory('$badgame', ['$http', '$log', '$q', '$sanitize', function($http, $log, $q, $sanitize) {
+  .factory('badgame', ['$http', '$log', '$q', '$sanitize', function($http, $log, $q, $sanitize) {
     var factory = {};
 
     var URL_DOMAIN = 'badgame.net';
