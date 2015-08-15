@@ -14,9 +14,13 @@ angular.module('bgAngularApp')
     $scope.offsetOverride = undefined;
     $scope.breadcrumbs = [];
     
+    function getOffset() {
+      return $scope.offsetOverride ? $routeParams.offset : ($scope.currentPage - 1) * $scope.postsPerPage;
+    }
+
     // Refresh the posts for the scope using current parameters
     $scope.refreshPosts = function() {
-      var offset = $scope.offsetOverride ? $routeParams.offset : ($scope.currentPage - 1) * $scope.postsPerPage;
+      var offset = getOffset(); 
 
       // Reset override
       if($scope.offsetOverride) {
@@ -57,6 +61,7 @@ angular.module('bgAngularApp')
 
     // Handle page changes
     $scope.pageChanged = function() {
+      $location.path('/topic/' + $routeParams.topicId + '/' + getOffset());
       $location.hash('top');
       $scope.refreshPosts();
     };
