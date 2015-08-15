@@ -21,6 +21,11 @@
         <button ng-if="can_reply" class="btn btn-default btn-sm" ng-click="handleQuote(post);">Quote</button>
         <button ng-if="can_reply" class="btn btn-default btn-sm" ng-click="handleReply();">Reply</button>
       </div>
+      <div ng-if="searchMode" class="pull-right post-actions">
+        <a href="{{ post.href }}">
+          <button class="btn btn-default btn-sm">Jump</button>
+        </a>
+      </div>
     </div>
   </div>
 
