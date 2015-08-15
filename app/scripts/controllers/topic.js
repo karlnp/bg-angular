@@ -63,7 +63,6 @@ angular.module('bgAngularApp')
     $scope.pageChanged = function() {
       $location.path('/topic/' + $routeParams.topicId + '/' + getOffset());
       $location.hash('top');
-      $scope.refreshPosts();
     };
 
     if($routeParams.offset) {
