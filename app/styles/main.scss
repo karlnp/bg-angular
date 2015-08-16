@@ -68,6 +68,10 @@ body {
   }
 }
 
+.container {
+  word-break: break-all;
+}
+
 /* We want as much horizontal space as we can get on
  * small screens. */
 @media screen and (max-width: 767px) {
