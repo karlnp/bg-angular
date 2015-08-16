@@ -22,11 +22,14 @@
     <!-- Add your site or application content here -->
     <div class="container">
       <div class="header">
+        <div class="pull-left" style="width: 50%;">
+          <thread-finder></thread-finder>
+        </div>
         <ul class="nav nav-pills pull-right">
           <li><a ng-href="#">Home</a></li>
           <li><a ng-href="#/search">Search</a></li>
         </ul>
-        <h3 class="text-muted">Badgame Lite</h3>
+        <div class="clearfix"></div>
       </div>
 
       <div ng-view=""></div>
@@ -98,6 +101,7 @@
         <script src="scripts/directives/bg_image.js"></script>
         <script src="scripts/directives/bg_post.js"></script>
         <script src="scripts/directives/repeat_complete.js"></script>
+        <script src="scripts/directives/thread_finder.js"></script>
         <script src="scripts/services/badgame_service.js"></script>
         <!-- endbuild -->
 </body>

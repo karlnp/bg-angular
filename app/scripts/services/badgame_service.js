@@ -10,6 +10,7 @@ angular.module('bgAngularApp')
     var LOGIN_URL = URL_BASE + 'index.php?action=login2;json';
     var BOARD_URL = URL_BASE + 'index.php?json&board=';
     var CATEGORY_URL = URL_BASE + '?json';
+    var FINDER_URL = URL_BASE + 'index.php?action=findthread';
     var TOPIC_URL = URL_BASE + 'index.php?json&topic=';
     var SEARCH_URL = URL_BASE + 'index.php?json&action=solrresults';
 
@@ -21,6 +22,25 @@ angular.module('bgAngularApp')
 
     // Maintain search params in service
     factory.searchParams = {};
+
+    /*
+      Find threads by matching the title of the given query
+    */
+    factory.findThreads = function(query) {
+      var deferred = $q.defer();
+
+      $http({
+        method: 'GET',
+        url: FINDER_URL + '&q=' + query,
+        withCredentials: true
+      }).success(function(data, status, headers, config) {
+        deferred.resolve(data);
+      }).error(function() {
+        deferred.reject();
+      });
+
+      return deferred.promise;
+    };
 
     /*
       Get available forums to post in
