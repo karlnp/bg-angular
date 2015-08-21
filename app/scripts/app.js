@@ -38,7 +38,8 @@ angular
   .config(['$routeProvider', 'toastrConfig', function ($routeProvider, toastrConfig) {
     angular.extend(toastrConfig, {
       allowHtml: true,
-      maxOpened: 1
+      maxOpened: 1,
+      preventOpenDuplicates: true
     });
 
     $routeProvider

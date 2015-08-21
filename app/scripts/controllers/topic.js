@@ -74,6 +74,7 @@ angular.module('bgAngularApp')
 
     $scope.toastAuthor = function(post) {
       var info = "Registered on " + post.registered + "<br>" + "Post count: " + post.posts; 
+      toastr.clear();
       toastr.info(info, post.username);
     };
 
