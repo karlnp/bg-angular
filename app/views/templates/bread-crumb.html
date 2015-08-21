@@ -1,5 +1,5 @@
-<div ng-if="breadcrumbs" bgpost>
-  <a href="{{ searchMode ? '/' : uplink}}">
+<div ng-if="breadcrumbs">
+  <a class="crumblink" bgpost ng-href="{{ searchMode ? '#/categories' : uplink}}">
     <ol class="breadcrumb">
       <li ng-repeat="crumb in breadcrumbs">
         <span ng-bind-html="crumb.name"></span>

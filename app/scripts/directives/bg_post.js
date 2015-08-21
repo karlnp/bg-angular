@@ -16,6 +16,38 @@ angular.module('bgAngularApp')
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
+    function checkLinks(scope, element) {
+      var href = $(element).attr('href');
+
+      /*
+        Attempt to extract to topic/board from badgame
+        links so we route them correctly in the app.
+      */
+      if(href && href.indexOf('http://badgame.net') > -1) {
+        var topic = getParam(href, 'topic');
+        var board = getParam(href, 'board');
+
+        // Route to topic
+        if(topic) {
+          $(element).bind('click', function(event) {
+            event.preventDefault();
+            var topicParams = topic.split('.');
+            $location.hash(topicParams[1]);
+            $location.path('/topic/' + topicParams[0] + '/' + topicParams[1]);
+            scope.$apply();
+          });
+        // Route to board
+        } else if(board) {
+          $(element).bind('click', function(event) {
+            event.preventDefault();
+            var boardParams = board.split('.');
+            $location.path('/board/' + boardParams[0]); 
+            scope.$apply();
+          });
+        }
+      }
+    }
+
     return {
       restict: 'A',
       link: function(scope, element, attr) {
@@ -32,37 +64,14 @@ angular.module('bgAngularApp')
             $(val).html('<a href="' + ytLink + '">' + ytLink + '</a>');
           });
 
-          // Link wrapper
+          // Link wrapper for links inside posts
           $(element).find('a').each(function(key, val) {
-            var href = $(val).attr('href');
+            checkLinks(scope, val);
+          });
 
-            /*
-              Attempt to extract to topic/board from badgame
-              links so we route them correctly in the app.
-            */
-            if(href && href.indexOf('http://badgame.net') > -1) {
-              var topic = getParam(href, 'topic');
-              var board = getParam(href, 'board');
-
-              // Route to topic
-              if(topic) {
-                $(val).bind('click', function(event) {
-                  event.preventDefault();
-                  var topicParams = topic.split('.');
-                  $location.hash(topicParams[1]);
-                  $location.path('/topic/' + topicParams[0] + '/' + topicParams[1]);
-                  scope.$apply();
-                });
-              // Route to board
-              } else if(board) {
-                $(val).bind('click', function(event) {
-                  event.preventDefault();
-                  var boardParams = board.split('.');
-                  $location.path('/board/' + boardParams[0]); 
-                  scope.$apply();
-                });
-              }
-            }
+          // Observe href attr for breadcrumb links and update them directly
+          attr.$observe('href', function(value) {
+            checkLinks(scope, element);
           });
         });
       }

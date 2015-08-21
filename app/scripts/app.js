@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'toastr'
   ])
   .run(['$rootScope', '$route', function($rootScope, $route) {
     // Image hiding variable management
@@ -34,9 +35,14 @@ angular
       }
     });
   }])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', 'toastrConfig', function ($routeProvider, toastrConfig) {
+    angular.extend(toastrConfig, {
+      allowHtml: true,
+      maxOpened: 1
+    });
+
     $routeProvider
-      .when('/', {
+      .when('/categories', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
@@ -68,6 +74,6 @@ angular
         controller: 'TopicCtrl'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/categories'
       });
-  });
+  }]);

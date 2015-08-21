@@ -8,7 +8,7 @@
  * Controller of the bgAngularApp
  */
 angular.module('bgAngularApp')
-  .controller('TopicCtrl', ['$scope', 'badgame', '$location', '$anchorScroll', '$routeParams', function ($scope, badgame, $location, $anchorScroll, $routeParams) {
+  .controller('TopicCtrl', ['$scope', 'badgame', '$location', '$anchorScroll', '$routeParams', 'toastr', function ($scope, badgame, $location, $anchorScroll, $routeParams, toastr) {
     // Init to 40, but use server settings after loading a page
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
@@ -70,6 +70,11 @@ angular.module('bgAngularApp')
       }
 
       $location.hash('top');
+    };
+
+    $scope.toastAuthor = function(post) {
+      var info = "Registered on " + post.registered + "<br>" + "Post count: " + post.posts; 
+      toastr.info(info, post.username);
     };
 
     if($routeParams.offset) {

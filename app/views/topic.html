@@ -10,7 +10,7 @@
   <div class="post" ng-repeat="post in posts" ngcomplete="postsDone" bgimage>
     <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
-    <div class="row author-info">
+    <div class="row author-info" ng-click="toastAuthor(post)">
       <span ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></span>
       <span class="author-name" ng-bind-html="post.author"></span>
     </div>
