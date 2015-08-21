@@ -1,8 +1,8 @@
 <div class="container">
-  <center>
+  <center ng-show="totalItems > 0">
       <div ng-include="'views/templates/bread-crumb.html'"></div>
       <a id="top"></a>
-      <pagination ng-show="totalItems > 0" boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
   </center>
 
   <hr/>
@@ -11,7 +11,9 @@
     <a id="msg{{ post.id }}"></a>
     <a ng-if="$last" id="new"></a>
     <div class="row author-info" ng-click="toastAuthor(post)">
-      <span ng-if="post.avatar.image" ng-bind-html="post.avatar.image"></span>
+      <span ng-if="post.avatar.image">
+        <img ng-src="{{ post.avatar.href }}?m={{ post.member_modified }}" class="avatar" border="0" />
+      </span>
       <span class="author-name" ng-bind-html="post.author"></span>
     </div>
     <div class="row post-content" bgpost>
@@ -31,8 +33,8 @@
 
   <hr/>
 
-  <center>
-      <pagination ng-show="totalItems > 0" boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+  <center ng-show="totalItems > 0">
+      <pagination boundary-links="true" direction-links="false" max-size="3" items-per-page="postsPerPage" total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
       <div ng-include="'views/templates/bread-crumb.html'"></div>
   </center>
 </div>
