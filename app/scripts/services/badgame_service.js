@@ -84,13 +84,14 @@ angular.module('bgAngularApp')
     /*
       Get the posts for a specified topic
     */
-    factory.getPosts = function (offset) {
-      var offset = offset || 0;
+    factory.getPosts = function (options) {
+      var offset = options.offset || 0;
       var deferred = $q.defer();
 
       $http({
         method: 'GET',
         url: TOPIC_URL + factory.currentTopic + '.' + offset,
+        params: {lr_count: options.lr_count, lr_id: options.lr_id},
         withCredentials: true
       }).success(function(data, status, headers, config) {
         deferred.resolve(data);
@@ -104,8 +105,8 @@ angular.module('bgAngularApp')
     /*
       Get the posts for a search query
     */
-    factory.getSearchResults = function(offset) {
-      var offset = offset || 0;
+    factory.getSearchResults = function(options) {
+      var offset = options.offset || 0;
       var deferred = $q.defer();
 
       $http({

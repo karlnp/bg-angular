@@ -10,6 +10,11 @@
 angular.module('bgAngularApp')
   .controller('TopicCtrl', ['$scope', 'badgame', '$location', '$anchorScroll', '$routeParams', 'toastr', function ($scope, badgame, $location, $anchorScroll, $routeParams, toastr) {
     // Init to 40, but use server settings after loading a page
+    $scope.firstPage = true;
+    $scope.unlimitedMode = false;
+    $scope.maxCounter = 0;
+    $scope.maxPostId = 0;
+    $scope.posts = [];
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
     $scope.breadcrumbs = [];
@@ -18,8 +23,22 @@ angular.module('bgAngularApp')
       return $scope.offsetOverride ? $routeParams.offset : ($scope.currentPage - 1) * $scope.postsPerPage;
     }
 
+    // Used for infinite scrolling
+    $scope.getMorePosts = function() {
+      $scope.unlimitedMode = true;
+
+      if($scope.posts.length > 0) {
+        if($scope.posts.length % $scope.postsPerPage === 0) {
+          $scope.currentPage++;
+        }
+
+        $scope.refreshPosts(true);
+      }
+    };
+
     // Refresh the posts for the scope using current parameters
-    $scope.refreshPosts = function() {
+    $scope.refreshPosts = function(appendMode) {
+      var appendMode = appendMode || false;
       var offset = getOffset(); 
 
       // Reset override
@@ -28,22 +47,56 @@ angular.module('bgAngularApp')
       }
 
       var postGetter = $scope.searchMode ? badgame.getSearchResults : badgame.getPosts;
+      var options = {
+        offset: offset,
+        lr_count: $scope.maxCounter,
+        lr_id: $scope.maxPostId
+      };
 
-      postGetter(offset).then(function(data) {
+      postGetter(options).then(function(data) {
+        if(data.messages.length === 0) {
+          $scope.currentPage--;
+          return;
+        }
+
         $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
-        $scope.posts = data.messages;
+        $scope.replyUrl = data.reply_url;
+
         $scope.currentPage = data.page_info.current_page;
         $scope.postsPerPage = data.page_info.items_per_page;
         $scope.totalItems = data.page_info.total_items;
-        $scope.replyUrl = data.reply_url;
+
+        // Append mode appends messages to existing data instead of clearing pages out
+        if(appendMode) {
+          // How many posts are on the current page?
+          var loaded = $scope.posts.length % $scope.postsPerPage;
+          
+          // Check to make sure there's data to append, message length needs to be greater than loaded for new posts
+          if(data.messages.length > loaded) { 
+            $scope.posts.push.apply($scope.posts, data.messages.slice(loaded));
+          }
+        // Regular mode replcaes existing data with the current page
+        } else {
+          $scope.posts = data.messages;
+        }
       });
+    };
+
+    $scope.postInView = function(post) {
+      if(post.count > $scope.maxCounter) {
+        $scope.maxCounter = post.count;
+        $scope.maxPostId = post.id;
+      }
     };
 
     // Monitor rendering status and jump to anchor
     $scope.$on('ngRepeatFinished', function(event) {
-      $anchorScroll();
+      if($scope.firstPage || !$scope.unlimitedMode) {
+        $scope.firstPage = false;
+        $anchorScroll();
+      }
     });
     
     $scope.handleEdit = function(element) {

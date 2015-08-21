@@ -17,7 +17,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'toastr'
+    'toastr',
+    'infinite-scroll',
+    'angular-inview'
   ])
   .run(['$rootScope', '$route', function($rootScope, $route) {
     // Image hiding variable management
@@ -78,3 +80,7 @@ angular
         redirectTo: '/categories'
       });
   }]);
+
+// Throttle scroll requests
+angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 2500)
+ 
