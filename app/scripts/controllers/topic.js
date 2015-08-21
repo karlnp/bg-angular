@@ -49,7 +49,7 @@ angular.module('bgAngularApp')
       var postGetter = $scope.searchMode ? badgame.getSearchResults : badgame.getPosts;
       var options = {
         offset: offset,
-        lr_count: $scope.maxCounter,
+        lr_count: $scope.maxCounter + 1,
         lr_id: $scope.maxPostId
       };
 
