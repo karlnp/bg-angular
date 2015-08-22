@@ -12,8 +12,9 @@ angular.module('bgAngularApp')
     // Init to 40, but use server settings after loading a page
     $scope.firstPage = true;
     $scope.unlimitedMode = false;
-    $scope.maxCounter = 0;
-    $scope.maxPostId = 0;
+    $scope.lastPostId = 0; // The actual last post we loaded
+    $scope.maxViewedCounter = 0;
+    $scope.maxViewedPostId = 0; // The last post the user saw
     $scope.posts = [];
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
@@ -50,17 +51,18 @@ angular.module('bgAngularApp')
       var postGetter = $scope.searchMode ? badgame.getSearchResults : badgame.getPosts;
       var options = {
         offset: offset,
-        lr_count: $scope.maxCounter + 1,
-        lr_id: $scope.maxPostId,
+        lr_count: $scope.maxViewedCounter + 1,
+        lr_id: $scope.maxViewedPostId,
         sc: $scope.sc
       };
 
       postGetter(options).then(function(data) {
-        if(data.messages.length === 0) {
+        if(data.messages.slice(-1)[0].id === $scope.lastPostId) {
           $scope.currentPage--;
           return;
         }
 
+        $scope.lastPostId = data.messages.slice(-1).id;
         $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
@@ -88,9 +90,9 @@ angular.module('bgAngularApp')
     };
 
     $scope.postInView = function(post) {
-      if(post.count > $scope.maxCounter) {
-        $scope.maxCounter = post.count;
-        $scope.maxPostId = post.id;
+      if(post.count > $scope.maxViewedCounter) {
+        $scope.maxViewedCounter = post.count;
+        $scope.maxViewedPostId = post.id;
       }
     };
 
