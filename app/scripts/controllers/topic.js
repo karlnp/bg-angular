@@ -57,12 +57,23 @@ angular.module('bgAngularApp')
       };
 
       postGetter(options).then(function(data) {
-        if(data.messages.slice(-1)[0].id === $scope.lastPostId) {
-          $scope.currentPage--;
+        var latestPostId = data.messages.slice(-1)[0].id;
+
+        // Same as last retrieval or a post was deleted 
+        if(latestPostId === $scope.lastPostId || latestPostId <= $scope.lastPostId) {
+          /*
+           TODO: Deleted posts will cause future posts to get skipped in the append behavior. Refresh on delete detection?
+           Ideally we could grab posts using the time stamp from the last loaded post as a marker instead of messing with offsets
+          */
+          // If you ask SMF for a page that doesn't exist, it returns the last page of the thread
+          // Bump page back if we got the last full page again
+          if($scope.posts.length % $scope.postsPerPage === 0 && data.messages.length === $scope.postsPerPage) {
+            $scope.currentPage--;
+          }
           return;
         }
 
-        $scope.lastPostId = data.messages.slice(-1).id;
+        $scope.lastPostId = latestPostId;
         $scope.breadcrumbs = data.crumbs.slice(2);
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
