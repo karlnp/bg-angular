@@ -17,6 +17,7 @@ angular.module('bgAngularApp')
     $scope.posts = [];
     $scope.postsPerPage = 40;
     $scope.offsetOverride = undefined;
+    $scope.sc = '';
     $scope.breadcrumbs = [];
     
     function getOffset() {
@@ -50,7 +51,8 @@ angular.module('bgAngularApp')
       var options = {
         offset: offset,
         lr_count: $scope.maxCounter + 1,
-        lr_id: $scope.maxPostId
+        lr_id: $scope.maxPostId,
+        sc: $scope.sc
       };
 
       postGetter(options).then(function(data) {
@@ -63,6 +65,7 @@ angular.module('bgAngularApp')
         $scope.can_reply = data.can_reply ? true : false;
         $scope.uplink = $scope.breadcrumbs[0].url;
         $scope.replyUrl = data.reply_url;
+        $scope.sc = data.sc;
 
         $scope.currentPage = data.page_info.current_page;
         $scope.postsPerPage = data.page_info.items_per_page;

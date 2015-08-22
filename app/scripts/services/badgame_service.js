@@ -88,10 +88,17 @@ angular.module('bgAngularApp')
       var offset = options.offset || 0;
       var deferred = $q.defer();
 
+      var params = {};
+      if(options.sc.length > 0) {
+        params.lr_count = options.lr_count;
+        params.lr_id = options.lr_id;
+        params.sesc = options.sc;
+      }
+
       $http({
         method: 'GET',
         url: TOPIC_URL + factory.currentTopic + '.' + offset,
-        params: {lr_count: options.lr_count, lr_id: options.lr_id},
+        params: params, 
         withCredentials: true
       }).success(function(data, status, headers, config) {
         deferred.resolve(data);
