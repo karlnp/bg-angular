@@ -52,6 +52,21 @@ angular.module('bgAngularApp')
       restict: 'A',
       link: function(scope, element, attr) {
         $timeout(function() {
+          // Hidden block handler
+          $(element).find('.hiddenheader').click(function() {
+              var hiddenblock = $(this).next('.hiddenblock');
+              if ($(this).hasClass('nwsheader')) {
+                  var html = hiddenblock.find('textarea').val();
+                  hiddenblock.find('textarea').replaceWith(html);
+              }
+              hiddenblock.slideToggle();
+          });
+
+          // Spoil click toggle for mobile devices
+          $(element).find('.spoiler').click(function() {
+            $(this).toggleClass('spoiler');
+          });
+
           // Vimeo
           $(element).find('.vimeo').each(function(key, val) {
             var vimeoLink = 'https://vimeo.com/' + $(val).text();
