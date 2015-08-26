@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bgAngularApp')
-  .directive('threadFinder', ['badgame', function(badgame) {
+  .directive('threadFinder', ['badgame', '$location', function(badgame, $location) {
     return {
       restrict: 'E',
       link: function(scope, element, attr) {
@@ -13,9 +13,12 @@ angular.module('bgAngularApp')
           });
         };  
 
-        scope.threadSelected = function() {
+        scope.threadSelected = function(item, model, label) {
           // Reset the input on selection because it goes to a new page
           scope.selectedThread = '';
+
+          $location.path('/topic/' + model.id + '/msg' + model.lastpostid);
+          $location.hash('msg' + model.lastpostid);
         };
       },
       templateUrl: '/views/templates/thread-finder.html'

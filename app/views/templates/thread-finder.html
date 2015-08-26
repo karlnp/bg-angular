@@ -1,15 +1,15 @@
 <script type="text/ng-template" id="threadTemplate.html">
-<span bgpost>
-  <a class="threadfinder" href="http://badgame.net/{{ match.model.href }}">
-    <h4>
+<span>
+  <a class="threadfinder">
+    <h5>
       <span ng-if="match.model.lastread">({{ match.model.unreadposts }})&nbsp;</span>
-      <span bind-html-unsafe="match.model.subject | typeaheadHighlight:query"></span>
-    </h4>
+      <span ng-bind-html="match.model.subject | typeaheadHighlight:query"></span>
+    </h5>
   </a>
 </span>
 </script>
 
-<input type="text" ng-model="selectedThread" placeholder="Find a Thread" typeahead="thread as thread.subject for thread in getThreads($viewValue)" typeahead-loading="loadingResults" typeahead-no-results="noResults" typeahead-template-url="threadTemplate.html" typeahead-wait-ms="750" typeahead-on-select="threadSelected()" class="form-control">
+<input type="text" ng-model="selectedThread" placeholder="Find a Thread" typeahead="thread as thread.subject for thread in getThreads($viewValue)" typeahead-loading="loadingResults" typeahead-no-results="noResults" typeahead-template-url="threadTemplate.html" typeahead-wait-ms="750" typeahead-on-select="threadSelected($item, $model, $label)" class="form-control">
 <i ng-show="loadingResults" class="glyphicon glyphicon-refresh"></i>
 <div ng-show="noResults">
   <i class="glyphicon glyphicon-remove"></i> No Results
