@@ -1,8 +1,10 @@
 <script type="text/ng-template" id="threadTemplate.html">
 <span bgpost>
   <a class="threadfinder" href="http://badgame.net/{{ match.model.href }}">
-    <span ng-if="match.model.lastread">({{ match.model.unreadposts }})&nbsp;</span>
-    <span bind-html-unsafe="match.model.subject | typeaheadHighlight:query"></span>
+    <h4>
+      <span ng-if="match.model.lastread">({{ match.model.unreadposts }})&nbsp;</span>
+      <span bind-html-unsafe="match.model.subject | typeaheadHighlight:query"></span>
+    </h4>
   </a>
 </span>
 </script>
