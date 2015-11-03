@@ -16,7 +16,7 @@
       </span>
       <span class="author-name" ng-bind-html="post.author"></span>
     </div>
-    <div class="row post-content" bgpost>
+    <div class="row post-content" bgpost tweets>
       <span ng-bind-html="post.body"></span>
       <div ng-if="!searchMode" class="pull-right post-actions">
         <button ng-if="post.can_modify" class="btn btn-default btn-sm" ng-click="handleEdit(post);">Edit</button>

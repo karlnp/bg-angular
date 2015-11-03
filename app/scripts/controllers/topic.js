@@ -41,8 +41,7 @@ angular.module('bgAngularApp')
       });
     };
 
-    // Monitor rendering status and jump to anchor
-    $scope.$on('ngRepeatFinished', function(event) {
+    $scope.$on('tweetsComplete', function(event) {
       $anchorScroll();
     });
     
