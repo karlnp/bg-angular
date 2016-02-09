@@ -27,6 +27,7 @@ angular.module('bgAngularApp')
       $location.path('/');
     });
 
+    
     $scope.performPost = function() {
       // Bypass angular scope stuff here, ng-model and ng-bind-html don't play nice?
       $scope.postParams.message = $('#post-input').val();
@@ -35,7 +36,7 @@ angular.module('bgAngularApp')
       if($scope.postParams.message.length == 0) {
         $scope.invalidPost = true;
         return;
-      };
+      }
 
       badgame.handlePost($scope.postParams).then(function() {
         // Redirect to new or to msg if specified

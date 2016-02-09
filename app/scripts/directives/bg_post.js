@@ -2,7 +2,7 @@
 
 /*
   This directive will handle all the post processing required
-  by badgame's BBC generation.
+  by badgame's BBC generation. bgpost is only related to post rendering.
 
   Links are also given a custom click handler so they stay in app
 */
@@ -91,4 +91,44 @@ angular.module('bgAngularApp')
         });
       }
     };
+  }]);
+
+/*
+  Utility directive for editing posts
+*/
+angular.module('bgAngularApp')
+  .directive('bgpostEdit', [function() {
+    return {
+      restict: 'A',
+      link: function(scope, element, attr) {
+        // Add a BBC tag to the message box
+        scope.appendTag = function(tag) {
+          var openTag = '[' + tag + ']';
+          var closeTag = '[/' + tag + ']';
+
+          var msgBox = $('#post-input');
+
+          var oldMsg = msgBox.val();
+
+          if (msgBox[0].selectionStart != msgBox[0].selectionEnd)
+            {
+              var newMsg = oldMsg.slice(0, msgBox[0].selectionStart) + openTag + oldMsg.slice(msgBox[0].selectionStart,
+                  msgBox[0].selectionEnd) + closeTag + oldMsg.slice(msgBox[0].selectionEnd, oldMsg.length);
+              msgBox.val(newMsg);
+              msgBox.focus();
+
+              return;
+            }
+
+          msgBox.val(msgBox.val() + openTag + closeTag);
+
+          var position = msgBox.val().length - closeTag.length;
+
+          msgBox[0].focus();
+
+          msgBox[0].selectionStart = msgBox[0].selectionEnd = position;
+        };
+      }
+    };
+
   }]);

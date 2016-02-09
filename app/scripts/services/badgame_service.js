@@ -151,6 +151,12 @@ angular.module('bgAngularApp')
     factory.postInit = function() {
       var deferred = $q.defer();
 
+      // TODO: Maintain postUrl in a smarter way? Currently a user can't refresh the posting
+      // page without it breaking.
+      if(factory.postUrl.length === 0) {
+        deferred.reject();
+      }
+
       $http({
         method: 'GET',
         url: factory.postUrl,
