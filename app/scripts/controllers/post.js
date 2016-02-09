@@ -27,6 +27,34 @@ angular.module('bgAngularApp')
       $location.path('/');
     });
 
+    $scope.appendTag = function(tag) {
+      // This isn't really very angular at all, but hey, it works.
+      var openTag = '[' + tag + ']';
+      var closeTag = '[/' + tag + ']';
+
+      var msgBox = $('#post-input');
+
+      var oldMsg = msgBox.val();
+
+      if (msgBox[0].selectionStart != msgBox[0].selectionEnd)
+        {
+          var newMsg = oldMsg.slice(0, msgBox[0].selectionStart) + openTag + oldMsg.slice(msgBox[0].selectionStart,
+              msgBox[0].selectionEnd) + closeTag + oldMsg.slice(msgBox[0].selectionEnd, oldMsg.length);
+          msgBox.val(newMsg);
+          msgBox.focus();
+
+          return;
+        }
+
+      msgBox.val(msgBox.val() + openTag + closeTag);
+
+      var position = msgBox.val().length - closeTag.length;
+
+      msgBox[0].focus();
+
+      msgBox[0].selectionStart = msgBox[0].selectionEnd = position;
+    };
+
     $scope.performPost = function() {
       // Bypass angular scope stuff here, ng-model and ng-bind-html don't play nice?
       $scope.postParams.message = $('#post-input').val();
@@ -35,7 +63,7 @@ angular.module('bgAngularApp')
       if($scope.postParams.message.length == 0) {
         $scope.invalidPost = true;
         return;
-      };
+      }
 
       badgame.handlePost($scope.postParams).then(function() {
         // Redirect to new or to msg if specified
